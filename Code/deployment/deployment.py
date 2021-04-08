@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import sys
 
 # Test File Load Sizes
-TEST_LOAD_SIZES = [128,512,2000,8000,32000]
+TEST_LOAD_SIZES = [128,129,130,131,132,133,134,135,136,137]
 
 # Get parent directory
 PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -84,7 +84,7 @@ def evaluation_1():
         except IndexError as e:
             pass
     
-    if download_completed == N:
+    if download_completed == 2:
         print('Evaluation 1 Passed')
     else:
         print('Evaluation 1 Failed')
@@ -98,10 +98,71 @@ def evaluation_1():
     delete_index()
     pass
 
+# Evaluation 1:
+def evaluation_2():
+    N = [2,4,8,16]
+
+    for n in N:
+        create_index()
+        create_peers(n)
+
+        for i in range(n):
+            if i != 0:
+                create_test_loads(i)
+
+        # start server and client and check
+        server_process = Popen(['python','index.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../index")   
+        time.sleep(2)
+
+        peer_processes = []
+
+        for i in range(n):
+            temp = Popen(['python','peer.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../peer_{i}")
+            peer_processes.append(temp)
+
+        time.sleep(3*n)
+
+        command = ""
+
+        for i in TEST_LOAD_SIZES:
+            command += "download load_{i}\n"
+        peer_processes[0].communicate(input=command.encode("utf-8"))[0]
+
+        time.sleep(10)
+
+        download_completed = 0
+
+        f = open(f"{PARENT_DIR}/../peer_0/client_log.txt","r")
+        lines = f.readlines()
+        f.close()
+
+        for j in lines:
+            try:
+                if j.split(' ')[2] == "DownloadComplete:":
+                    download_completed += 1
+            except IndexError as e:
+                pass
+        
+        if download_completed == 10:
+            print('Evaluation 2 Passed')
+        else:
+            print('Evaluation 2 Failed')
+        
+        for i in range(n):
+            peer_processes[i].kill()
+        server_process.kill()
+
+        delete_peers(n)
+        delete_index()
+        pass
+
 
 if __name__ == "__main__":
     if sys.argv[1] == "-1":
         evaluation_1()
+    
+    elif sys.argv[1] == "-2":
+        evaluation_2()
 
     elif sys.argv[1] == "-c" and len(sys.argv) == 3:
         try: 

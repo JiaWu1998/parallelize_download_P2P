@@ -265,6 +265,8 @@ def wait_for_file_download(full_command):
         log_this("ParameterError: Too less parameters")
         return
     
+    start = time.time()
+
     for file in parameters:
         # check if parallelism is needed
         peer_hosts, file_size = find_peer_hosts(file)
@@ -292,53 +294,9 @@ def wait_for_file_download(full_command):
 
             for t in threads:
                 t.join()
-        
-        
 
-# CONTINUE HERE
-
-
-
-# parallelize_wait_for_file_chunk(peer_socket, peer_id, offset, chunk_size, file):
-
-    # # Compute ports that 'this' peer will try to connect
-    # client_thread_ports = [i+((len(config['client']['ports'])+1)*target_client) for i in THREAD_PORTS]
-
-    # # initialize connections with the other peer
-    # client_sockets = []
-
-    # for i in range(len(client_thread_ports)):
-    #     temp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #     temp.connect((IP, client_thread_ports[i]))
-    #     temp.setblocking(False)
-
-    #     # Initialize conneciton with the server
-    #     send_message(temp, '', my_username)
-        
-    #     # add the temp socket to the pool
-    #     client_sockets.append(temp)
-
-    # # starts waiting for file download
-    # if parallelize:       
-    #     for i in range(0, len(files), len(client_thread_ports)):
-    #         thread_idx = 0
-    #         threads = []
-    #         for j in range(i,i+ len(client_thread_ports)):
-    #             if j < len(files):
-    #                 t = Thread(target=parallelize_wait_for_file_download, args=(client_sockets[thread_idx], [files[j]],))
-    #                 t.start()
-    #                 threads.append(t)
-    #                 thread_idx += 1
-            
-    #         for t in threads:
-    #             t.join()
-    # else:
-    #     # start = time.time()
-    #     t = Thread(target=parallelize_wait_for_file_download, args=(client_sockets[0], files,))
-    #     t.start()
-
-    #     # end = time.time()
-    #     # log_this(f"DownloadComplete: {(end-start)*1000} ms. Downloaded Files are {' '.join(files)}")
+    end = time.time()
+    log_this(f"DownloadComplete: {(end-start)*1000} ms. Downloaded Files are {' '.join(parameters)}")
 
     return
 
