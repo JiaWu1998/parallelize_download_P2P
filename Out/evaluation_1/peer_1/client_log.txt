@@ -1,0 +1,19 @@
+2021-04-08 16:37:54.573219 MESSAGE SENT with metadata: message:peer_1
+2021-04-08 16:37:54.573582 Listening for connections on 127.0.0.1:1246...
+2021-04-08 16:37:57.578015 MESSAGE SENT with metadata:1 message:update_list load_130+130
+load_137+137
+load_136+136
+load_131+131
+load_134+134
+load_133+133
+load_132+132
+load_135+135
+load_128+128
+load_129+129
+2021-04-08 16:38:00.714816 Accepted new connection from 127.0.0.1:57761, username: peer_0
+2021-04-08 16:38:00.715780 2021-04-08 16:38:00.715763 Recieved command from peer_0: download
+
+2021-04-08 16:38:00.716170 MESSAGE SENT with metadata: message:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+2021-04-08 16:38:00.716260 MESSAGE SENT with metadata:END message:0b649bcb5a82868817fec9a6e709d233
+2021-04-08 16:38:00.716327 load_128 was sent to peer_0
+2021-04-08 16:38:00.717217 2021-04-08 16:38:00.717198 Closed connection from: peer_0

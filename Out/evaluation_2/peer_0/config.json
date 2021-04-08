@@ -1,0 +1,38 @@
+{
+    "index": 
+    {
+        "ip_address": "127.0.0.1",
+        "port": 1235, 
+        "log_file": "server_log.txt",
+        "watch_folder_name": "watch_folder"
+    },
+    "peers": [
+        {
+            "ip_address": "127.0.0.1",
+            "port": 1245,
+            "log_file": "client_log.txt",
+            "download_folder_name": "download_folder"
+        },
+        {
+            "ip_address": "127.0.0.1",
+            "port": 1246,
+            "log_file": "client_log.txt",
+            "download_folder_name": "download_folder"
+        },
+        {
+            "ip_address": "127.0.0.1",
+            "port": 1247,
+            "log_file": "client_log.txt",
+            "download_folder_name": "download_folder"
+        },
+        {
+            "ip_address": "127.0.0.1",
+            "port": 1248,
+            "log_file": "client_log.txt",
+            "download_folder_name": "download_folder"
+        }
+    ],
+    "header_length": 10,
+    "meta_length": 20,
+    "redownload_times": 5
+}

@@ -94,12 +94,14 @@ def evaluation_1():
     peer_process_3.kill()
     server_process.kill()
 
-    delete_peers(N)
-    delete_index()
+    # delete_peers(N)
+    # delete_index()
     pass
 
 # Evaluation 1:
 def evaluation_2():
+
+    average_speed = []
     N = [2,4,8,16]
 
     for n in N:
@@ -131,6 +133,8 @@ def evaluation_2():
         time.sleep(10)
 
         download_completed = 0
+        speed = 0
+        count = 0
 
         f = open(f"{PARENT_DIR}/../peer_0/client_log.txt","r")
         lines = f.readlines()
@@ -139,14 +143,20 @@ def evaluation_2():
         for j in lines:
             try:
                 if j.split(' ')[2] == "DownloadComplete:":
+                    speed += float(j.split(' ')[3])
+                    count += 1
                     download_completed += 1
             except IndexError as e:
                 pass
         
         if download_completed == 10:
             print('Evaluation 2 Passed')
+
         else:
             print('Evaluation 2 Failed')
+        
+        speed /= count
+        average_speed.append(speed)
         
         for i in range(n):
             peer_processes[i].kill()
@@ -154,7 +164,15 @@ def evaluation_2():
 
         delete_peers(n)
         delete_index()
-        pass
+    
+    plt.plot(N,average_speed)
+    plt.title('Average Transfer Time Vs Number of Nodes with 10 Same Files')
+    plt.xlabel('Number of Nodes')
+    plt.ylabel('Average Transfer Speed (ms)')
+    plt.savefig(f"{PARENT_DIR}/../results/eval2.png")
+
+    
+    
 
 
 if __name__ == "__main__":

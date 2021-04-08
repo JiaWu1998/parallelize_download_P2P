@@ -1,0 +1,15 @@
+2021-04-08 16:37:54.707003 MESSAGE SENT with metadata: message:peer_0
+2021-04-08 16:37:54.707540 Listening for connections on 127.0.0.1:1245...
+2021-04-08 16:37:57.712026 MESSAGE SENT with metadata:0 message:update_list 
+2021-04-08 16:38:00.713947 MESSAGE SENT with metadata: message:find_peer_hosts 0 load_128
+2021-04-08 16:38:00.714606 MESSAGE SENT with metadata: message:peer_0
+2021-04-08 16:38:00.714877 MESSAGE SENT with metadata: message:peer_0
+2021-04-08 16:38:00.715193 MESSAGE SENT with metadata: message:download 0 64 load_128
+2021-04-08 16:38:00.715601 MESSAGE SENT with metadata: message:download 64 64 load_128
+2021-04-08 16:38:00.716734 DownloadChunkComplete: 1.110076904296875 ms. Downloaded chunk for file load_128 on offset 64 from peer_2
+2021-04-08 16:38:00.716851 DownloadChunkComplete: 1.6551017761230469 ms. Downloaded chunk for file load_128 on offset 0 from peer_1
+2021-04-08 16:38:00.716953 DownloadComplete: 3.009796142578125 ms. Downloaded Files are load_128
+2021-04-08 16:38:00.716991 MESSAGE SENT with metadata:0 message:update_list load_128+128
+2021-04-08 16:38:00.717232 MESSAGE SENT with metadata: message:find_peer_hosts 0 load_512
+2021-04-08 16:38:00.717816 FileNotFound: target_file is load_512
+2021-04-08 16:38:00.717871 DownloadComplete: 0.6358623504638672 ms. Downloaded Files are load_512

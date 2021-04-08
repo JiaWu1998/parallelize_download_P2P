@@ -1,0 +1,13 @@
+2021-04-08 16:37:52.391364 Listening for connections on 127.0.0.1:1235...
+2021-04-08 16:37:54.573401 Accepted new connection from 127.0.0.1:57758, username: peer_1
+2021-04-08 16:37:54.707246 Accepted new connection from 127.0.0.1:57759, username: peer_0
+2021-04-08 16:37:54.721872 Accepted new connection from 127.0.0.1:57760, username: peer_2
+2021-04-08 16:37:57.578203 2021-04-08 16:37:57.578186 Received command from peer_1: update_list
+2021-04-08 16:37:57.712222 2021-04-08 16:37:57.712199 Received command from peer_0: update_list
+2021-04-08 16:37:57.730959 2021-04-08 16:37:57.730929 Received command from peer_2: update_list
+2021-04-08 16:38:00.714179 2021-04-08 16:38:00.714153 Received command from peer_0: find_peer_hosts
+2021-04-08 16:38:00.714303 MESSAGE SENT with metadata: message:1 2 128
+2021-04-08 16:38:00.717432 2021-04-08 16:38:00.717410 Received command from peer_0: update_list
+2021-04-08 16:38:00.717562 2021-04-08 16:38:00.717550 Received command from peer_0: find_peer_hosts
+2021-04-08 16:38:00.717664 MESSAGE SENT with metadata:ERROR message:File not Found
+2021-04-08 16:38:00.738805 2021-04-08 16:38:00.738772 Closed connection from: peer_0
