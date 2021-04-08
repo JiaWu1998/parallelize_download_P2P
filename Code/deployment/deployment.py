@@ -94,8 +94,8 @@ def evaluation_1():
     peer_process_3.kill()
     server_process.kill()
 
-    # delete_peers(N)
-    # delete_index()
+    delete_peers(N)
+    delete_index()
     pass
 
 # Evaluation 1:
