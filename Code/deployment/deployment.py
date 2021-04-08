@@ -44,8 +44,8 @@ def delete_peers(N):
 # Create test loads for client_idx
 def create_test_loads(idx):
     for size in TEST_LOAD_SIZES:
-        f = open(f"{PARENT_DIR}/../peer_{idx}/download_folder/load_{size}","wb")
-        f.write(os.urandom(size))
+        f = open(f"{PARENT_DIR}/../peer_{idx}/download_folder/load_{size}","w")
+        f.write("b"*size)
         f.close()
 
 # Evaluation 1:
@@ -55,40 +55,44 @@ def evaluation_1():
     create_index()
     create_peers(N)
 
-    for n in range(N):
-        create_test_loads(n)
+    create_test_loads(1)
+    create_test_loads(2)
 
     # start server and client and check
-    server_process = Popen(['python','server.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../server")    
-    client_process_1 = Popen(['python','client.py','Mr.0',f"download 1 load_{TEST_LOAD_SIZES[-1]}", "quit"], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../client_0")
-    client_process_2 = Popen(['python','client.py','Mr.1',f"download 2 load_{TEST_LOAD_SIZES[-1]}", "quit"], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../client_1")
-    client_process_3 = Popen(['python','client.py','Mr.2',f"download 0 load_{TEST_LOAD_SIZES[-1]}", "quit"], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../client_2")
+    server_process = Popen(['python','index.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../index")   
+    time.sleep(2)
 
-    # wait for downloads to finish
-    time.sleep(5)
+    peer_process_1 = Popen(['python','peer.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../peer_0")
+    peer_process_2 = Popen(['python','peer.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../peer_1")
+    peer_process_3 = Popen(['python','peer.py'], stdout=PIPE, stdin=PIPE, stderr=PIPE, cwd=f"{PARENT_DIR}/../peer_2")
 
-    client_process_1.wait()
-    client_process_2.wait()
-    client_process_3.wait()
-    server_process.kill()
+    time.sleep(3)
+    peer_process_1.communicate(input='download load_128\n download load_512'.encode("utf-8"))[0]
+
+    time.sleep(3)
 
     download_completed = 0
-    for i in range(N):
-        f = open(f"{PARENT_DIR}/../client_{i}/client_log.txt","r")
-        lines = f.readlines()
-        f.close()
 
-        for j in lines:
-            try:
-                if j.split(' ')[2] == "DownloadComplete:":
-                    download_completed += 1
-            except IndexError as e:
-                pass
+    f = open(f"{PARENT_DIR}/../peer_0/client_log.txt","r")
+    lines = f.readlines()
+    f.close()
+
+    for j in lines:
+        try:
+            if j.split(' ')[2] == "DownloadComplete:":
+                download_completed += 1
+        except IndexError as e:
+            pass
     
     if download_completed == N:
         print('Evaluation 1 Passed')
     else:
         print('Evaluation 1 Failed')
+    
+    peer_process_1.kill()
+    peer_process_2.kill()
+    peer_process_3.kill()
+    server_process.kill()
 
     delete_peers(N)
     delete_index()
